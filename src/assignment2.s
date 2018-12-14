@@ -10,7 +10,7 @@ main:
       li    $s1, 0
       li    $s2, 12
 
-while:
+loop:
       slti  $t0, $s0, 4
       beq   $t0, $zero, end
 
@@ -23,7 +23,7 @@ while:
       addi  $s0, $s0, 1
       addi  $s1, $s1, 4
       addi  $s2, $s2, -4
-      j     while
+      j     loop
 
 end:
       jr    $ra
