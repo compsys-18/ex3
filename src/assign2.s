@@ -4,7 +4,7 @@ A:
 B:
       .word 5 6 7 8
 BREAK:
-      .asciiz "size of A and B isn't equal.\n"
+      .asciiz "Not equal the size of A and B.\n"
 
       .text
       .globl start
