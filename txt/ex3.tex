@@ -5,9 +5,26 @@
 \date{}
 
 \begin{document}
-  \maketitle
+\maketitle
 
   \section{説明・工夫}
+    \subsection{sltを用いたbltの実装(assigenment1blt.s)}
+
+    sltを用いない場合
+    \begin{center}
+    blt   \$s1, \$s2, label
+    \end{center}
+    と記述するが、sltを用いた場合
+    \begin{center}
+    slt   \$t0, \$s1, \$s2\\
+    bne   \$t0, \$zero, label
+    \end{center}
+    となる。
+
+    \$s1 $<$ \$s2 を満たすとき、labelへjumpすればよい。\\
+    sltを用いると、条件を満たすとき \$t0 $=$ 1 となる。0 と \$t0 を比較し、not equal ならば j~~label よりbneを用いた。\\
+    比較で\$zeroを用いると、新たにレジスタに値をいれなくてよいのでコードが短くなる。
+    \subsection{sltを用いたbleの実装}
   \section{実行結果}
   \section{感想}
 \end{document}
