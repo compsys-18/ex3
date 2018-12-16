@@ -1,4 +1,5 @@
-\documentclass{jarticle}
+\documentclass[fleqn]{jarticle}
+\usepackage{amsmath}
 
 \title{計算機システム演習　第三回レポート}
 \author{17B13541 \and 細木隆豊}
@@ -8,23 +9,40 @@
 \maketitle
 
   \section{説明・工夫}
-    \subsection{sltを用いたbltの実装(assigenment1blt.s)}
+    {\large sltを用いたbltの実装(assigenment1blt.s)}
+    \begin{flalign}
+      &\mbox{sltを用いない場合}& \nonumber \\
+      &\mbox{blt   \$s1, \$s2, label}& \nonumber \\
+      \nonumber \\
+      &\mbox{sltを用いた場合}& \nonumber \\
+      &\mbox{slt   \$t0, \$s1, \$s2}& \\
+      &\mbox{bne   \$t0, \$zero, label}& \nonumber
+    \end{flalign}\\
+    \$s1 $<$ \$s2 を満たすとき、labelへjumpすればよい。
+    (1)を用いると、条件を満たすとき \$t0 $=$ 1 となる。0 と \$t0 を比較し、not equal ならば j~~label よりbneを用いた。\\
+    比較で\$zeroを用いると、新たにレジスタに値をいれなくてよいのでコードが短くなる。\\
+    assigenment1ble.sも同様だが、assigenment1blt.sは二つの値のうち小さい値を出力するプログラムである。\\
+    \\
 
-    sltを用いない場合
-    \begin{center}
-    blt   \$s1, \$s2, label
-    \end{center}
-    と記述するが、sltを用いた場合
-    \begin{center}
-    slt   \$t0, \$s1, \$s2\\
-    bne   \$t0, \$zero, label
-    \end{center}
-    となる。
+    {\large sltを用いたbleの実装(assigenment1ble.s)}
+    \begin{flalign}
+      &\mbox{sltを用いない場合}& \nonumber \\
+      &\mbox{ble   \$s1, \$s2, label}& \nonumber \\
+      \nonumber \\
+      &\mbox{sltを用いた場合}& \nonumber \\
+      &\mbox{slt   \$t0, \$s2, \$s1}& \\
+      &\mbox{beq   \$t0, \$zero, label}& \nonumber
+    \end{flalign}\\
+    bltと同じように考え、\$s1 $\le$ \$s2 を満たすときlabelにjumpすればよい。この条件は、\$s2 $<$ \$s1 を満たさない場合、と言い換えることができる。(2)を用いると、\$s1 $\le$ \$s2 のとき \$t0 は 0 であるから、beqを用いる。\\
+    \\
 
-    \$s1 $<$ \$s2 を満たすとき、labelへjumpすればよい。\\
-    sltを用いると、条件を満たすとき \$t0 $=$ 1 となる。0 と \$t0 を比較し、not equal ならば j~~label よりbneを用いた。\\
-    比較で\$zeroを用いると、新たにレジスタに値をいれなくてよいのでコードが短くなる。
-    \subsection{sltを用いたbleの実装}
+    {\large 長さ4の二つの配列の要素の和(assigenment2.s)}\\
+    ループした回数i ($<$配列の長さ)、i $\times$ 4 (A[i]のアドレスを示すため)、(3 - i) $\times$ 4 (B[3-i]のアドレスを示すため)を記録する三つのレジスタを用意して、ループごとにこれらの値を更新していき、syscallを用いて A[i] + B[3-i] をconsoleに出力するようにした。\\
+    assemblyのコマンドとして、"mul"を用いてよいのかわからなかった(資料のサイトで用いているのを確認していなかった)ためこのようなプログラムになった(assign2.sではmulを用いる)。\\
+    \\
+
+    {\large 任意長の配列に対して(assign2.s)}\\
+    assigenment2.sに配列の長さが等しいかの確認(check)、長さが異なった場合にプログラムを終了(brk)するコードを追加した。実際に動かす場合はdataのA,Bと、main内の"\#配列Aの長さ","\#配列Bの長さ"を変えればよい。
   \section{実行結果}
   \section{感想}
 \end{document}
