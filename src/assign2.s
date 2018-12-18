@@ -2,15 +2,13 @@
 A:
       .word 1 2 3 4
 B:
-      .word 5 6 7 8
+      .word 5 6 7 8 9
 BREAK:
       .asciiz "Not equal the size of A and B.\n"
 
       .text
       .globl start
 start:
-
-check:
       bne   $s0, $s1, brk
 
       move  $t0, $s1
@@ -49,7 +47,7 @@ main:
       sw    $ra, 0($sp) #$raのアドレスを記録
 
       li    $s0, 4 #配列Aの長さ
-      li    $s1, 4 #配列Bの長さ
+      li    $s1, 5 #配列Bの長さ
 
       jal   start
 

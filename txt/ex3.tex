@@ -21,7 +21,7 @@
     \$s1 $<$ \$s2 を満たすとき、labelへjumpすればよい。
     (1)を用いると、条件を満たすとき \$t0 $=$ 1 となる。0 と \$t0 を比較し、not equal ならば j~~label よりbneを用いた。\\
     比較で\$zeroを用いると、新たにレジスタに値をいれなくてよいのでコードが短くなる。\\
-    assigenment1ble.sも同様だが、assigenment1blt.sは二つの値のうち小さい値を出力するプログラムである。\\
+    assigenment1blt.sは5より小さい値を0から順に出力するプログラムである。\\
     \\
 
     {\large sltを用いたbleの実装(assigenment1ble.s)}
@@ -34,6 +34,7 @@
       &\mbox{beq   \$t0, \$zero, label}& \nonumber
     \end{flalign}\\
     bltと同じように考え、\$s1 $\le$ \$s2 を満たすときlabelにjumpすればよい。この条件は、\$s2 $<$ \$s1 を満たさない場合、と言い換えることができる。(2)を用いると、\$s1 $\le$ \$s2 のとき \$t0 は 0 であるから、beqを用いる。\\
+    assigenment1ble.sは5以下の数を0から順に出力するプログラムである。
     \\
 
     {\large 長さ4の二つの配列の要素の和(assigenment2.s)}\\
@@ -43,6 +44,38 @@
 
     {\large 任意長の配列に対して(assign2.s)}\\
     assigenment2.sに配列の長さが等しいかの確認(check)、長さが異なった場合にプログラムを終了(brk)するコードを追加した。実際に動かす場合はdataのA,Bと、main内の"\#配列Aの長さ","\#配列Bの長さ"を変えればよい。
+
   \section{実行結果}
+  assignment1blt.s
+  \begin{flalign*}
+    &01234
+  \end{flalign*}
+
+  assignment1ble.s
+  \begin{flalign*}
+    &012345
+  \end{flalign*}
+
+  assignment2.s
+  \begin{flalign*}
+    &9999
+  \end{flalign*}
+
+  assign2.s\\
+  A $=$ \{1, 2, 3, 4\}, B $=$ \{5, 6, 7, 8\} の時
+  \begin{flalign*}
+    &9999
+  \end{flalign*}
+  A $=$ \{1, 2, 3, 4\}, B $=$ \{5, 6, 7, 8, 9\} の時
+  \begin{flalign*}
+    &\mbox{Not equal the size of A and B.}
+  \end{flalign*}
+  A $=$ \{1, 2, 3, 4, 5\}, B $=$ \{5, 6, 7, 8, 9\} の時
+  \begin{flalign*}
+    &1010101010
+  \end{flalign*}
   \section{感想}
+  アセンブリ言語を扱うのが初めてだったので、最初は慣れていなくてむずかしかったがやっていくうちにわかっていったように感じた。
+
+  assign2.sでjalを使って混乱していたが、メモリを配列のように扱うことの良さを実感できたと思う。
 \end{document}
